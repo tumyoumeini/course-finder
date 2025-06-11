@@ -1,0 +1,575 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>International Course Finder</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 30px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        select, button {
+            padding: 10px;
+            font-size: 16px;
+        }
+        table {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<h1>International Course Finder</h1>
+
+<div class="filters">
+    <select id="countryFilter">
+        <option value="">Filter by Country</option>
+        <option value="Australia">Australia</option>
+<option value="Canada">Canada</option>
+<option value="Germany">Germany</option>
+<option value="Japan">Japan</option>
+<option value="Netherlands">Netherlands</option>
+<option value="Singapore">Singapore</option>
+<option value="UAE">UAE</option>
+<option value="UK">UK</option>
+<option value="USA">USA</option>
+    </select>
+
+    <select id="categoryFilter">
+        <option value="">Filter by Category</option>
+        <option value="Architecture">Architecture</option>
+<option value="Arts">Arts</option>
+<option value="Business">Business</option>
+<option value="Commerce">Commerce</option>
+<option value="Design">Design</option>
+<option value="Education">Education</option>
+<option value="Engineering">Engineering</option>
+<option value="IT">IT</option>
+<option value="Law">Law</option>
+<option value="Medicine">Medicine</option>
+<option value="Pharmacy">Pharmacy</option>
+<option value="Science">Science</option>
+    </select>
+
+    <button onclick="applyFilters()">Search</button>
+</div>
+
+<table id="courseTable" class="display">
+    <thead>
+        <tr>
+            <th>Course Name</th>
+            <th>University</th>
+            <th>Country</th>
+            <th>Duration</th>
+            <th>Fees</th>
+            <th>Website</th>
+            <th>Category</th>
+            <th>Requirements</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>Commerce in Management</td><td>University of Dubai</td><td>UAE</td><td>2 years</td><td>$13,214</td><td><a href='https://www.universityofdubai.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>12th with 75%+</td></tr>
+<tr><td>Business in Civil Engg</td><td>Eindhoven University</td><td>Netherlands</td><td>4 years</td><td>$14,609</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Business</td><td>Portfolio Required</td></tr>
+<tr><td>Design in Finance</td><td>NUS</td><td>Singapore</td><td>4 years</td><td>$30,859</td><td><a href='https://www.nus.edu' target='_blank'>Visit</a></td><td>Design</td><td>GRE required</td></tr>
+<tr><td>Commerce in AI</td><td>Kyoto University</td><td>Japan</td><td>3 years</td><td>$12,909</td><td><a href='https://www.kyotouniversity.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>GRE required</td></tr>
+<tr><td>Education in Data Science</td><td>Delft University of Technology</td><td>Netherlands</td><td>3 years</td><td>$8,853</td><td><a href='https://www.delftuniversityoftechnology.edu' target='_blank'>Visit</a></td><td>Education</td><td>GRE required</td></tr>
+<tr><td>Business in Law</td><td>University of Cambridge</td><td>UK</td><td>5 years</td><td>$26,422</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Business</td><td>TOEFL 90+</td></tr>
+<tr><td>Design in Psychology</td><td>University of Sydney</td><td>Australia</td><td>2 years</td><td>$28,354</td><td><a href='https://www.universityofsydney.edu' target='_blank'>Visit</a></td><td>Design</td><td>IELTS 6.5+</td></tr>
+<tr><td>Arts in Management</td><td>University of Tokyo</td><td>Japan</td><td>5 years</td><td>$13,374</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Arts</td><td>12th with 75%+</td></tr>
+<tr><td>Arts in Management</td><td>Osaka University</td><td>Japan</td><td>5 years</td><td>$8,570</td><td><a href='https://www.osakauniversity.edu' target='_blank'>Visit</a></td><td>Arts</td><td>IELTS 6.5+</td></tr>
+<tr><td>Pharmacy in Civil Engg</td><td>University of Amsterdam</td><td>Netherlands</td><td>5 years</td><td>$11,059</td><td><a href='https://www.universityofamsterdam.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>Portfolio Required</td></tr>
+<tr><td>Arts in Finance</td><td>SMU</td><td>Singapore</td><td>5 years</td><td>$25,319</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>Arts</td><td>TOEFL 90+</td></tr>
+<tr><td>Business in Civil Engg</td><td>Heidelberg University</td><td>Germany</td><td>4 years</td><td>$192</td><td><a href='https://www.heidelberguniversity.edu' target='_blank'>Visit</a></td><td>Business</td><td>12th with 75%+</td></tr>
+<tr><td>Arts in Psychology</td><td>University of Cambridge</td><td>UK</td><td>5 years</td><td>$33,375</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Arts</td><td>Portfolio Required</td></tr>
+<tr><td>Medicine in Data Science</td><td>SMU</td><td>Singapore</td><td>2 years</td><td>$36,597</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>12th with 75%+</td></tr>
+<tr><td>Design in Biotech</td><td>University of Sydney</td><td>Australia</td><td>5 years</td><td>$32,464</td><td><a href='https://www.universityofsydney.edu' target='_blank'>Visit</a></td><td>Design</td><td>12th with 75%+</td></tr>
+<tr><td>Medicine in Civil Engg</td><td>University of Cambridge</td><td>UK</td><td>2 years</td><td>$38,381</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>TOEFL 90+</td></tr>
+<tr><td>Architecture in Law</td><td>University of Amsterdam</td><td>Netherlands</td><td>3 years</td><td>$18,169</td><td><a href='https://www.universityofamsterdam.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Design in Data Science</td><td>Australian National University</td><td>Australia</td><td>4 years</td><td>$29,173</td><td><a href='https://www.australiannationaluniversity.edu' target='_blank'>Visit</a></td><td>Design</td><td>12th with 75%+</td></tr>
+<tr><td>Business in AI</td><td>Eindhoven University</td><td>Netherlands</td><td>3 years</td><td>$17,148</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Business</td><td>TOEFL 90+</td></tr>
+<tr><td>Architecture in Biotech</td><td>University of Tokyo</td><td>Japan</td><td>5 years</td><td>$14,080</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>GRE required</td></tr>
+<tr><td>Engineering in AI</td><td>Heidelberg University</td><td>Germany</td><td>4 years</td><td>$762</td><td><a href='https://www.heidelberguniversity.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>GRE required</td></tr>
+<tr><td>Science in Biotech</td><td>Australian National University</td><td>Australia</td><td>2 years</td><td>$23,047</td><td><a href='https://www.australiannationaluniversity.edu' target='_blank'>Visit</a></td><td>Science</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Pharmacy in Biotech</td><td>TU Munich</td><td>Germany</td><td>2 years</td><td>$1,173</td><td><a href='https://www.tumunich.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>GRE required</td></tr>
+<tr><td>Law in Data Science</td><td>Imperial College London</td><td>UK</td><td>5 years</td><td>$34,204</td><td><a href='https://www.imperialcollegelondon.edu' target='_blank'>Visit</a></td><td>Law</td><td>Portfolio Required</td></tr>
+<tr><td>Education in Design</td><td>Heidelberg University</td><td>Germany</td><td>4 years</td><td>$1,414</td><td><a href='https://www.heidelberguniversity.edu' target='_blank'>Visit</a></td><td>Education</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Architecture in Design</td><td>Kyoto University</td><td>Japan</td><td>3 years</td><td>$7,899</td><td><a href='https://www.kyotouniversity.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>Portfolio Required</td></tr>
+<tr><td>Science in Management</td><td>University of Dubai</td><td>UAE</td><td>3 years</td><td>$15,141</td><td><a href='https://www.universityofdubai.edu' target='_blank'>Visit</a></td><td>Science</td><td>IELTS 6.5+</td></tr>
+<tr><td>Education in AI</td><td>University of Amsterdam</td><td>Netherlands</td><td>2 years</td><td>$15,611</td><td><a href='https://www.universityofamsterdam.edu' target='_blank'>Visit</a></td><td>Education</td><td>GRE required</td></tr>
+<tr><td>Medicine in Biotech</td><td>TU Munich</td><td>Germany</td><td>4 years</td><td>$62</td><td><a href='https://www.tumunich.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>TOEFL 90+</td></tr>
+<tr><td>Commerce in AI</td><td>Harvard University</td><td>USA</td><td>4 years</td><td>$51,814</td><td><a href='https://www.harvarduniversity.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>IELTS 6.5+</td></tr>
+<tr><td>Architecture in Design</td><td>University of Tokyo</td><td>Japan</td><td>3 years</td><td>$6,628</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>Portfolio Required</td></tr>
+<tr><td>Arts in Management</td><td>Heidelberg University</td><td>Germany</td><td>5 years</td><td>$865</td><td><a href='https://www.heidelberguniversity.edu' target='_blank'>Visit</a></td><td>Arts</td><td>IELTS 6.5+</td></tr>
+<tr><td>Law in Data Science</td><td>MIT</td><td>USA</td><td>3 years</td><td>$36,909</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>Law</td><td>IELTS 6.5+</td></tr>
+<tr><td>Medicine in Law</td><td>McGill University</td><td>Canada</td><td>2 years</td><td>$17,107</td><td><a href='https://www.mcgilluniversity.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>IELTS 6.5+</td></tr>
+<tr><td>Medicine in Law</td><td>University of Sydney</td><td>Australia</td><td>3 years</td><td>$24,256</td><td><a href='https://www.universityofsydney.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>Portfolio Required</td></tr>
+<tr><td>IT in Law</td><td>MIT</td><td>USA</td><td>4 years</td><td>$43,645</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>IT</td><td>IELTS 6.5+</td></tr>
+<tr><td>Science in Biotech</td><td>Australian National University</td><td>Australia</td><td>4 years</td><td>$25,723</td><td><a href='https://www.australiannationaluniversity.edu' target='_blank'>Visit</a></td><td>Science</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Engineering in Finance</td><td>University of British Columbia</td><td>Canada</td><td>2 years</td><td>$19,053</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>Portfolio Required</td></tr>
+<tr><td>Education in Data Science</td><td>Kyoto University</td><td>Japan</td><td>4 years</td><td>$11,774</td><td><a href='https://www.kyotouniversity.edu' target='_blank'>Visit</a></td><td>Education</td><td>Portfolio Required</td></tr>
+<tr><td>Engineering in Psychology</td><td>University of Tokyo</td><td>Japan</td><td>3 years</td><td>$7,169</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Education in AI</td><td>Khalifa University</td><td>UAE</td><td>2 years</td><td>$22,065</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Education</td><td>IELTS 6.5+</td></tr>
+<tr><td>Education in Psychology</td><td>Osaka University</td><td>Japan</td><td>3 years</td><td>$13,359</td><td><a href='https://www.osakauniversity.edu' target='_blank'>Visit</a></td><td>Education</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Science in Civil Engg</td><td>NUS</td><td>Singapore</td><td>4 years</td><td>$39,333</td><td><a href='https://www.nus.edu' target='_blank'>Visit</a></td><td>Science</td><td>TOEFL 90+</td></tr>
+<tr><td>Design in Finance</td><td>University of Cambridge</td><td>UK</td><td>3 years</td><td>$24,486</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Design</td><td>12th with 75%+</td></tr>
+<tr><td>Design in Design</td><td>Imperial College London</td><td>UK</td><td>3 years</td><td>$22,473</td><td><a href='https://www.imperialcollegelondon.edu' target='_blank'>Visit</a></td><td>Design</td><td>TOEFL 90+</td></tr>
+<tr><td>Design in Design</td><td>TU Munich</td><td>Germany</td><td>2 years</td><td>$299</td><td><a href='https://www.tumunich.edu' target='_blank'>Visit</a></td><td>Design</td><td>IELTS 6.5+</td></tr>
+<tr><td>Medicine in Design</td><td>RWTH Aachen</td><td>Germany</td><td>3 years</td><td>$980</td><td><a href='https://www.rwthaachen.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>TOEFL 90+</td></tr>
+<tr><td>Law in Law</td><td>University of Toronto</td><td>Canada</td><td>4 years</td><td>$29,025</td><td><a href='https://www.universityoftoronto.edu' target='_blank'>Visit</a></td><td>Law</td><td>12th with 75%+</td></tr>
+<tr><td>Arts in Civil Engg</td><td>McGill University</td><td>Canada</td><td>3 years</td><td>$19,426</td><td><a href='https://www.mcgilluniversity.edu' target='_blank'>Visit</a></td><td>Arts</td><td>12th with 75%+</td></tr>
+<tr><td>Design in AI</td><td>University of Cambridge</td><td>UK</td><td>5 years</td><td>$37,151</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Design</td><td>GRE required</td></tr>
+<tr><td>IT in Data Science</td><td>NUS</td><td>Singapore</td><td>2 years</td><td>$30,444</td><td><a href='https://www.nus.edu' target='_blank'>Visit</a></td><td>IT</td><td>GRE required</td></tr>
+<tr><td>Science in Design</td><td>University of British Columbia</td><td>Canada</td><td>3 years</td><td>$25,655</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>Science</td><td>IELTS 6.5+</td></tr>
+<tr><td>Architecture in Finance</td><td>Harvard University</td><td>USA</td><td>3 years</td><td>$51,374</td><td><a href='https://www.harvarduniversity.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Medicine in Management</td><td>Delft University of Technology</td><td>Netherlands</td><td>3 years</td><td>$16,536</td><td><a href='https://www.delftuniversityoftechnology.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>IELTS 6.5+</td></tr>
+<tr><td>Medicine in AI</td><td>MIT</td><td>USA</td><td>2 years</td><td>$53,351</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>12th with 75%+</td></tr>
+<tr><td>Business in Management</td><td>Kyoto University</td><td>Japan</td><td>2 years</td><td>$5,774</td><td><a href='https://www.kyotouniversity.edu' target='_blank'>Visit</a></td><td>Business</td><td>Portfolio Required</td></tr>
+<tr><td>Commerce in Finance</td><td>University of British Columbia</td><td>Canada</td><td>3 years</td><td>$25,541</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>Portfolio Required</td></tr>
+<tr><td>Arts in Design</td><td>University of Amsterdam</td><td>Netherlands</td><td>5 years</td><td>$11,367</td><td><a href='https://www.universityofamsterdam.edu' target='_blank'>Visit</a></td><td>Arts</td><td>Portfolio Required</td></tr>
+<tr><td>Business in Psychology</td><td>Khalifa University</td><td>UAE</td><td>5 years</td><td>$23,063</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Business</td><td>IELTS 6.5+</td></tr>
+<tr><td>Commerce in Design</td><td>University of Melbourne</td><td>Australia</td><td>4 years</td><td>$33,001</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>12th with 75%+</td></tr>
+<tr><td>Architecture in Design</td><td>Stanford University</td><td>USA</td><td>4 years</td><td>$45,120</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>12th with 75%+</td></tr>
+<tr><td>Arts in Biotech</td><td>University of Melbourne</td><td>Australia</td><td>4 years</td><td>$28,607</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Arts</td><td>TOEFL 90+</td></tr>
+<tr><td>IT in Psychology</td><td>SMU</td><td>Singapore</td><td>3 years</td><td>$30,543</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>IT</td><td>IELTS 6.5+</td></tr>
+<tr><td>IT in Psychology</td><td>University of Dubai</td><td>UAE</td><td>2 years</td><td>$23,509</td><td><a href='https://www.universityofdubai.edu' target='_blank'>Visit</a></td><td>IT</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Pharmacy in Data Science</td><td>Kyoto University</td><td>Japan</td><td>4 years</td><td>$8,519</td><td><a href='https://www.kyotouniversity.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>Portfolio Required</td></tr>
+<tr><td>Design in Management</td><td>Imperial College London</td><td>UK</td><td>3 years</td><td>$22,434</td><td><a href='https://www.imperialcollegelondon.edu' target='_blank'>Visit</a></td><td>Design</td><td>IELTS 6.5+</td></tr>
+<tr><td>Science in Management</td><td>University of Tokyo</td><td>Japan</td><td>5 years</td><td>$14,460</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Science</td><td>Portfolio Required</td></tr>
+<tr><td>Design in Data Science</td><td>University of Tokyo</td><td>Japan</td><td>3 years</td><td>$6,620</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Design</td><td>IELTS 6.5+</td></tr>
+<tr><td>Arts in Civil Engg</td><td>University of Tokyo</td><td>Japan</td><td>3 years</td><td>$12,863</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Arts</td><td>GRE required</td></tr>
+<tr><td>Architecture in Law</td><td>University of Toronto</td><td>Canada</td><td>4 years</td><td>$29,538</td><td><a href='https://www.universityoftoronto.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>Portfolio Required</td></tr>
+<tr><td>Business in Law</td><td>Stanford University</td><td>USA</td><td>5 years</td><td>$32,085</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>Business</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Medicine in Biotech</td><td>Eindhoven University</td><td>Netherlands</td><td>2 years</td><td>$14,167</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>TOEFL 90+</td></tr>
+<tr><td>Architecture in Finance</td><td>University of Cambridge</td><td>UK</td><td>3 years</td><td>$39,542</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>12th with 75%+</td></tr>
+<tr><td>Pharmacy in Management</td><td>TU Munich</td><td>Germany</td><td>3 years</td><td>$593</td><td><a href='https://www.tumunich.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>IELTS 6.5+</td></tr>
+<tr><td>Law in Civil Engg</td><td>American University of Sharjah</td><td>UAE</td><td>3 years</td><td>$24,969</td><td><a href='https://www.americanuniversityofsharjah.edu' target='_blank'>Visit</a></td><td>Law</td><td>12th with 75%+</td></tr>
+<tr><td>Design in Data Science</td><td>University of Oxford</td><td>UK</td><td>5 years</td><td>$21,036</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Design</td><td>TOEFL 90+</td></tr>
+<tr><td>Engineering in Biotech</td><td>Osaka University</td><td>Japan</td><td>2 years</td><td>$11,332</td><td><a href='https://www.osakauniversity.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Business in Civil Engg</td><td>Eindhoven University</td><td>Netherlands</td><td>5 years</td><td>$19,548</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Business</td><td>Portfolio Required</td></tr>
+<tr><td>Medicine in Biotech</td><td>University of Melbourne</td><td>Australia</td><td>4 years</td><td>$20,128</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>GRE required</td></tr>
+<tr><td>Pharmacy in Law</td><td>University of Oxford</td><td>UK</td><td>4 years</td><td>$35,508</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Business in Psychology</td><td>Khalifa University</td><td>UAE</td><td>3 years</td><td>$10,484</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Business</td><td>TOEFL 90+</td></tr>
+<tr><td>Architecture in Design</td><td>University of Oxford</td><td>UK</td><td>3 years</td><td>$30,337</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>TOEFL 90+</td></tr>
+<tr><td>Business in Finance</td><td>SMU</td><td>Singapore</td><td>5 years</td><td>$38,073</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>Business</td><td>GRE required</td></tr>
+<tr><td>Engineering in Management</td><td>Khalifa University</td><td>UAE</td><td>4 years</td><td>$24,127</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>IELTS 6.5+</td></tr>
+<tr><td>Arts in Psychology</td><td>MIT</td><td>USA</td><td>5 years</td><td>$52,649</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>Arts</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Commerce in Civil Engg</td><td>University of Dubai</td><td>UAE</td><td>4 years</td><td>$16,199</td><td><a href='https://www.universityofdubai.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>12th with 75%+</td></tr>
+<tr><td>Medicine in Biotech</td><td>Harvard University</td><td>USA</td><td>3 years</td><td>$59,137</td><td><a href='https://www.harvarduniversity.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>12th with 75%+</td></tr>
+<tr><td>Business in Finance</td><td>TU Munich</td><td>Germany</td><td>4 years</td><td>$1,090</td><td><a href='https://www.tumunich.edu' target='_blank'>Visit</a></td><td>Business</td><td>TOEFL 90+</td></tr>
+<tr><td>Engineering in Management</td><td>Kyoto University</td><td>Japan</td><td>5 years</td><td>$5,672</td><td><a href='https://www.kyotouniversity.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>GRE required</td></tr>
+<tr><td>Commerce in Civil Engg</td><td>SMU</td><td>Singapore</td><td>3 years</td><td>$37,834</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>TOEFL 90+</td></tr>
+<tr><td>IT in Management</td><td>NTU</td><td>Singapore</td><td>5 years</td><td>$39,489</td><td><a href='https://www.ntu.edu' target='_blank'>Visit</a></td><td>IT</td><td>Portfolio Required</td></tr>
+<tr><td>Law in Data Science</td><td>Eindhoven University</td><td>Netherlands</td><td>3 years</td><td>$12,431</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Law</td><td>GRE required</td></tr>
+<tr><td>Engineering in Law</td><td>University of Amsterdam</td><td>Netherlands</td><td>4 years</td><td>$8,568</td><td><a href='https://www.universityofamsterdam.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>12th with 75%+</td></tr>
+<tr><td>Arts in Biotech</td><td>NUS</td><td>Singapore</td><td>5 years</td><td>$33,579</td><td><a href='https://www.nus.edu' target='_blank'>Visit</a></td><td>Arts</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Commerce in Civil Engg</td><td>NUS</td><td>Singapore</td><td>3 years</td><td>$34,119</td><td><a href='https://www.nus.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>Portfolio Required</td></tr>
+<tr><td>Design in AI</td><td>Stanford University</td><td>USA</td><td>4 years</td><td>$53,046</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>Design</td><td>TOEFL 90+</td></tr>
+<tr><td>Pharmacy in Management</td><td>Stanford University</td><td>USA</td><td>4 years</td><td>$39,294</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>TOEFL 90+</td></tr>
+<tr><td>Commerce in Data Science</td><td>TU Munich</td><td>Germany</td><td>4 years</td><td>$517</td><td><a href='https://www.tumunich.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>12th with 75%+</td></tr>
+<tr><td>Commerce in Psychology</td><td>NTU</td><td>Singapore</td><td>2 years</td><td>$34,090</td><td><a href='https://www.ntu.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>IELTS 6.5+</td></tr>
+<tr><td>Arts in Civil Engg</td><td>Imperial College London</td><td>UK</td><td>2 years</td><td>$27,672</td><td><a href='https://www.imperialcollegelondon.edu' target='_blank'>Visit</a></td><td>Arts</td><td>TOEFL 90+</td></tr>
+<tr><td>Law in AI</td><td>NUS</td><td>Singapore</td><td>5 years</td><td>$33,937</td><td><a href='https://www.nus.edu' target='_blank'>Visit</a></td><td>Law</td><td>TOEFL 90+</td></tr>
+<tr><td>Law in Design</td><td>SMU</td><td>Singapore</td><td>4 years</td><td>$38,942</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>Law</td><td>12th with 75%+</td></tr>
+<tr><td>Science in Psychology</td><td>SMU</td><td>Singapore</td><td>5 years</td><td>$27,881</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>Science</td><td>Portfolio Required</td></tr>
+<tr><td>Arts in Civil Engg</td><td>SMU</td><td>Singapore</td><td>5 years</td><td>$30,643</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>Arts</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Engineering in Management</td><td>TU Munich</td><td>Germany</td><td>4 years</td><td>$41</td><td><a href='https://www.tumunich.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Engineering in Design</td><td>University of Toronto</td><td>Canada</td><td>4 years</td><td>$28,546</td><td><a href='https://www.universityoftoronto.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>TOEFL 90+</td></tr>
+<tr><td>Design in Psychology</td><td>University of Dubai</td><td>UAE</td><td>3 years</td><td>$18,655</td><td><a href='https://www.universityofdubai.edu' target='_blank'>Visit</a></td><td>Design</td><td>GRE required</td></tr>
+<tr><td>Arts in Finance</td><td>McGill University</td><td>Canada</td><td>2 years</td><td>$19,469</td><td><a href='https://www.mcgilluniversity.edu' target='_blank'>Visit</a></td><td>Arts</td><td>Portfolio Required</td></tr>
+<tr><td>Pharmacy in Civil Engg</td><td>University of Sydney</td><td>Australia</td><td>4 years</td><td>$29,975</td><td><a href='https://www.universityofsydney.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>Portfolio Required</td></tr>
+<tr><td>Design in AI</td><td>Eindhoven University</td><td>Netherlands</td><td>2 years</td><td>$8,040</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Design</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Architecture in Psychology</td><td>University of Sydney</td><td>Australia</td><td>5 years</td><td>$26,919</td><td><a href='https://www.universityofsydney.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>IELTS 6.5+</td></tr>
+<tr><td>Arts in Data Science</td><td>Delft University of Technology</td><td>Netherlands</td><td>4 years</td><td>$15,479</td><td><a href='https://www.delftuniversityoftechnology.edu' target='_blank'>Visit</a></td><td>Arts</td><td>GRE required</td></tr>
+<tr><td>Arts in Design</td><td>University of Oxford</td><td>UK</td><td>2 years</td><td>$28,809</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Arts</td><td>TOEFL 90+</td></tr>
+<tr><td>Design in Design</td><td>SMU</td><td>Singapore</td><td>4 years</td><td>$30,328</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>Design</td><td>TOEFL 90+</td></tr>
+<tr><td>Engineering in Management</td><td>TU Munich</td><td>Germany</td><td>5 years</td><td>$433</td><td><a href='https://www.tumunich.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>IELTS 6.5+</td></tr>
+<tr><td>Medicine in Finance</td><td>NUS</td><td>Singapore</td><td>3 years</td><td>$37,684</td><td><a href='https://www.nus.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>Portfolio Required</td></tr>
+<tr><td>Medicine in Management</td><td>University of British Columbia</td><td>Canada</td><td>4 years</td><td>$19,469</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>TOEFL 90+</td></tr>
+<tr><td>Law in Management</td><td>Kyoto University</td><td>Japan</td><td>2 years</td><td>$9,479</td><td><a href='https://www.kyotouniversity.edu' target='_blank'>Visit</a></td><td>Law</td><td>Bachelor’s Degree</td></tr>
+<tr><td>IT in Management</td><td>Stanford University</td><td>USA</td><td>3 years</td><td>$44,336</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>IT</td><td>Portfolio Required</td></tr>
+<tr><td>Law in Law</td><td>Imperial College London</td><td>UK</td><td>5 years</td><td>$23,521</td><td><a href='https://www.imperialcollegelondon.edu' target='_blank'>Visit</a></td><td>Law</td><td>GRE required</td></tr>
+<tr><td>Pharmacy in Data Science</td><td>Imperial College London</td><td>UK</td><td>4 years</td><td>$20,625</td><td><a href='https://www.imperialcollegelondon.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>IELTS 6.5+</td></tr>
+<tr><td>Law in Law</td><td>McGill University</td><td>Canada</td><td>3 years</td><td>$18,938</td><td><a href='https://www.mcgilluniversity.edu' target='_blank'>Visit</a></td><td>Law</td><td>TOEFL 90+</td></tr>
+<tr><td>IT in Law</td><td>University of Cambridge</td><td>UK</td><td>3 years</td><td>$36,299</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>IT</td><td>IELTS 6.5+</td></tr>
+<tr><td>Pharmacy in AI</td><td>Kyoto University</td><td>Japan</td><td>2 years</td><td>$6,505</td><td><a href='https://www.kyotouniversity.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>TOEFL 90+</td></tr>
+<tr><td>Science in Civil Engg</td><td>University of British Columbia</td><td>Canada</td><td>4 years</td><td>$20,027</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>Science</td><td>IELTS 6.5+</td></tr>
+<tr><td>Law in AI</td><td>University of Cambridge</td><td>UK</td><td>4 years</td><td>$24,999</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Law</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Commerce in Psychology</td><td>American University of Sharjah</td><td>UAE</td><td>3 years</td><td>$11,112</td><td><a href='https://www.americanuniversityofsharjah.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>TOEFL 90+</td></tr>
+<tr><td>Education in Finance</td><td>Delft University of Technology</td><td>Netherlands</td><td>3 years</td><td>$11,577</td><td><a href='https://www.delftuniversityoftechnology.edu' target='_blank'>Visit</a></td><td>Education</td><td>TOEFL 90+</td></tr>
+<tr><td>Engineering in Finance</td><td>Delft University of Technology</td><td>Netherlands</td><td>3 years</td><td>$8,613</td><td><a href='https://www.delftuniversityoftechnology.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Law in Data Science</td><td>University of Toronto</td><td>Canada</td><td>4 years</td><td>$28,814</td><td><a href='https://www.universityoftoronto.edu' target='_blank'>Visit</a></td><td>Law</td><td>12th with 75%+</td></tr>
+<tr><td>Commerce in Design</td><td>Khalifa University</td><td>UAE</td><td>3 years</td><td>$14,542</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>TOEFL 90+</td></tr>
+<tr><td>Medicine in Psychology</td><td>NTU</td><td>Singapore</td><td>5 years</td><td>$28,899</td><td><a href='https://www.ntu.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>TOEFL 90+</td></tr>
+<tr><td>Commerce in Data Science</td><td>University of Dubai</td><td>UAE</td><td>5 years</td><td>$24,617</td><td><a href='https://www.universityofdubai.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Law in Management</td><td>University of Cambridge</td><td>UK</td><td>3 years</td><td>$20,042</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Law</td><td>GRE required</td></tr>
+<tr><td>Arts in Biotech</td><td>University of Oxford</td><td>UK</td><td>2 years</td><td>$23,591</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Arts</td><td>IELTS 6.5+</td></tr>
+<tr><td>Design in Management</td><td>Stanford University</td><td>USA</td><td>5 years</td><td>$43,455</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>Design</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Arts in Data Science</td><td>University of Melbourne</td><td>Australia</td><td>4 years</td><td>$25,197</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Arts</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Engineering in Design</td><td>University of Amsterdam</td><td>Netherlands</td><td>2 years</td><td>$17,364</td><td><a href='https://www.universityofamsterdam.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>IELTS 6.5+</td></tr>
+<tr><td>Commerce in AI</td><td>University of Oxford</td><td>UK</td><td>5 years</td><td>$32,348</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>IELTS 6.5+</td></tr>
+<tr><td>Pharmacy in AI</td><td>University of Sydney</td><td>Australia</td><td>4 years</td><td>$25,443</td><td><a href='https://www.universityofsydney.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>IELTS 6.5+</td></tr>
+<tr><td>Architecture in Biotech</td><td>American University of Sharjah</td><td>UAE</td><td>5 years</td><td>$11,005</td><td><a href='https://www.americanuniversityofsharjah.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>IELTS 6.5+</td></tr>
+<tr><td>Education in AI</td><td>Imperial College London</td><td>UK</td><td>2 years</td><td>$31,725</td><td><a href='https://www.imperialcollegelondon.edu' target='_blank'>Visit</a></td><td>Education</td><td>TOEFL 90+</td></tr>
+<tr><td>Business in AI</td><td>McGill University</td><td>Canada</td><td>2 years</td><td>$24,248</td><td><a href='https://www.mcgilluniversity.edu' target='_blank'>Visit</a></td><td>Business</td><td>IELTS 6.5+</td></tr>
+<tr><td>Science in Management</td><td>Khalifa University</td><td>UAE</td><td>4 years</td><td>$24,146</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Science</td><td>TOEFL 90+</td></tr>
+<tr><td>Engineering in Law</td><td>University of British Columbia</td><td>Canada</td><td>5 years</td><td>$21,439</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>12th with 75%+</td></tr>
+<tr><td>Design in Civil Engg</td><td>McGill University</td><td>Canada</td><td>4 years</td><td>$28,524</td><td><a href='https://www.mcgilluniversity.edu' target='_blank'>Visit</a></td><td>Design</td><td>TOEFL 90+</td></tr>
+<tr><td>Business in Data Science</td><td>Stanford University</td><td>USA</td><td>5 years</td><td>$56,658</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>Business</td><td>GRE required</td></tr>
+<tr><td>IT in Biotech</td><td>SMU</td><td>Singapore</td><td>3 years</td><td>$32,410</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>IT</td><td>12th with 75%+</td></tr>
+<tr><td>Law in Law</td><td>Stanford University</td><td>USA</td><td>4 years</td><td>$50,359</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>Law</td><td>Portfolio Required</td></tr>
+<tr><td>IT in Law</td><td>University of British Columbia</td><td>Canada</td><td>3 years</td><td>$29,628</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>IT</td><td>12th with 75%+</td></tr>
+<tr><td>Arts in Finance</td><td>Imperial College London</td><td>UK</td><td>4 years</td><td>$23,747</td><td><a href='https://www.imperialcollegelondon.edu' target='_blank'>Visit</a></td><td>Arts</td><td>GRE required</td></tr>
+<tr><td>Science in Management</td><td>University of Tokyo</td><td>Japan</td><td>2 years</td><td>$8,372</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Science</td><td>IELTS 6.5+</td></tr>
+<tr><td>Medicine in Management</td><td>NUS</td><td>Singapore</td><td>5 years</td><td>$28,156</td><td><a href='https://www.nus.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>12th with 75%+</td></tr>
+<tr><td>IT in Biotech</td><td>University of British Columbia</td><td>Canada</td><td>3 years</td><td>$27,085</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>IT</td><td>TOEFL 90+</td></tr>
+<tr><td>Science in Management</td><td>University of British Columbia</td><td>Canada</td><td>4 years</td><td>$29,552</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>Science</td><td>Portfolio Required</td></tr>
+<tr><td>Commerce in Civil Engg</td><td>University of Melbourne</td><td>Australia</td><td>4 years</td><td>$32,633</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>GRE required</td></tr>
+<tr><td>Arts in Law</td><td>TU Munich</td><td>Germany</td><td>5 years</td><td>$54</td><td><a href='https://www.tumunich.edu' target='_blank'>Visit</a></td><td>Arts</td><td>12th with 75%+</td></tr>
+<tr><td>Commerce in Finance</td><td>NTU</td><td>Singapore</td><td>5 years</td><td>$25,237</td><td><a href='https://www.ntu.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>Portfolio Required</td></tr>
+<tr><td>Architecture in Design</td><td>Eindhoven University</td><td>Netherlands</td><td>5 years</td><td>$8,478</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>TOEFL 90+</td></tr>
+<tr><td>Engineering in Civil Engg</td><td>Eindhoven University</td><td>Netherlands</td><td>3 years</td><td>$13,798</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>GRE required</td></tr>
+<tr><td>Pharmacy in Finance</td><td>MIT</td><td>USA</td><td>4 years</td><td>$42,187</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>Portfolio Required</td></tr>
+<tr><td>Science in Law</td><td>NUS</td><td>Singapore</td><td>5 years</td><td>$31,684</td><td><a href='https://www.nus.edu' target='_blank'>Visit</a></td><td>Science</td><td>TOEFL 90+</td></tr>
+<tr><td>IT in AI</td><td>Kyoto University</td><td>Japan</td><td>4 years</td><td>$13,566</td><td><a href='https://www.kyotouniversity.edu' target='_blank'>Visit</a></td><td>IT</td><td>IELTS 6.5+</td></tr>
+<tr><td>Engineering in Design</td><td>University of Sydney</td><td>Australia</td><td>5 years</td><td>$19,792</td><td><a href='https://www.universityofsydney.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>GRE required</td></tr>
+<tr><td>Law in Finance</td><td>University of Melbourne</td><td>Australia</td><td>2 years</td><td>$30,090</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Law</td><td>Portfolio Required</td></tr>
+<tr><td>IT in Management</td><td>Khalifa University</td><td>UAE</td><td>5 years</td><td>$23,354</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>IT</td><td>GRE required</td></tr>
+<tr><td>Commerce in Finance</td><td>American University of Sharjah</td><td>UAE</td><td>2 years</td><td>$22,233</td><td><a href='https://www.americanuniversityofsharjah.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>GRE required</td></tr>
+<tr><td>Arts in Management</td><td>Imperial College London</td><td>UK</td><td>3 years</td><td>$36,695</td><td><a href='https://www.imperialcollegelondon.edu' target='_blank'>Visit</a></td><td>Arts</td><td>IELTS 6.5+</td></tr>
+<tr><td>Education in Finance</td><td>Harvard University</td><td>USA</td><td>2 years</td><td>$36,289</td><td><a href='https://www.harvarduniversity.edu' target='_blank'>Visit</a></td><td>Education</td><td>GRE required</td></tr>
+<tr><td>Engineering in Management</td><td>University of Tokyo</td><td>Japan</td><td>4 years</td><td>$10,435</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>TOEFL 90+</td></tr>
+<tr><td>Science in Law</td><td>University of Toronto</td><td>Canada</td><td>4 years</td><td>$19,859</td><td><a href='https://www.universityoftoronto.edu' target='_blank'>Visit</a></td><td>Science</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Education in Biotech</td><td>American University of Sharjah</td><td>UAE</td><td>4 years</td><td>$16,959</td><td><a href='https://www.americanuniversityofsharjah.edu' target='_blank'>Visit</a></td><td>Education</td><td>GRE required</td></tr>
+<tr><td>Medicine in AI</td><td>Kyoto University</td><td>Japan</td><td>3 years</td><td>$6,576</td><td><a href='https://www.kyotouniversity.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>12th with 75%+</td></tr>
+<tr><td>Education in Law</td><td>Heidelberg University</td><td>Germany</td><td>5 years</td><td>$756</td><td><a href='https://www.heidelberguniversity.edu' target='_blank'>Visit</a></td><td>Education</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Business in AI</td><td>University of Cambridge</td><td>UK</td><td>5 years</td><td>$39,621</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Business</td><td>TOEFL 90+</td></tr>
+<tr><td>Arts in Civil Engg</td><td>TU Munich</td><td>Germany</td><td>2 years</td><td>$889</td><td><a href='https://www.tumunich.edu' target='_blank'>Visit</a></td><td>Arts</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Commerce in Data Science</td><td>Delft University of Technology</td><td>Netherlands</td><td>4 years</td><td>$17,230</td><td><a href='https://www.delftuniversityoftechnology.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>GRE required</td></tr>
+<tr><td>Medicine in Design</td><td>Stanford University</td><td>USA</td><td>3 years</td><td>$44,278</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>Portfolio Required</td></tr>
+<tr><td>IT in Data Science</td><td>University of Sydney</td><td>Australia</td><td>4 years</td><td>$24,415</td><td><a href='https://www.universityofsydney.edu' target='_blank'>Visit</a></td><td>IT</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Business in Design</td><td>Kyoto University</td><td>Japan</td><td>2 years</td><td>$13,796</td><td><a href='https://www.kyotouniversity.edu' target='_blank'>Visit</a></td><td>Business</td><td>TOEFL 90+</td></tr>
+<tr><td>Law in Management</td><td>University of Melbourne</td><td>Australia</td><td>2 years</td><td>$31,847</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Law</td><td>IELTS 6.5+</td></tr>
+<tr><td>Education in Biotech</td><td>Australian National University</td><td>Australia</td><td>4 years</td><td>$26,582</td><td><a href='https://www.australiannationaluniversity.edu' target='_blank'>Visit</a></td><td>Education</td><td>GRE required</td></tr>
+<tr><td>Arts in Psychology</td><td>University of Tokyo</td><td>Japan</td><td>4 years</td><td>$9,625</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Arts</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Medicine in Psychology</td><td>University of Cambridge</td><td>UK</td><td>2 years</td><td>$27,640</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>Portfolio Required</td></tr>
+<tr><td>Arts in AI</td><td>University of Oxford</td><td>UK</td><td>4 years</td><td>$37,144</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Arts</td><td>GRE required</td></tr>
+<tr><td>Engineering in Civil Engg</td><td>University of Amsterdam</td><td>Netherlands</td><td>4 years</td><td>$16,451</td><td><a href='https://www.universityofamsterdam.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>IELTS 6.5+</td></tr>
+<tr><td>Medicine in Law</td><td>University of Sydney</td><td>Australia</td><td>4 years</td><td>$26,301</td><td><a href='https://www.universityofsydney.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>Bachelor’s Degree</td></tr>
+<tr><td>IT in Biotech</td><td>NTU</td><td>Singapore</td><td>4 years</td><td>$26,439</td><td><a href='https://www.ntu.edu' target='_blank'>Visit</a></td><td>IT</td><td>12th with 75%+</td></tr>
+<tr><td>Education in Design</td><td>University of Sydney</td><td>Australia</td><td>3 years</td><td>$20,125</td><td><a href='https://www.universityofsydney.edu' target='_blank'>Visit</a></td><td>Education</td><td>IELTS 6.5+</td></tr>
+<tr><td>Design in Psychology</td><td>Delft University of Technology</td><td>Netherlands</td><td>4 years</td><td>$14,778</td><td><a href='https://www.delftuniversityoftechnology.edu' target='_blank'>Visit</a></td><td>Design</td><td>Portfolio Required</td></tr>
+<tr><td>Pharmacy in Biotech</td><td>University of Amsterdam</td><td>Netherlands</td><td>5 years</td><td>$12,341</td><td><a href='https://www.universityofamsterdam.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>GRE required</td></tr>
+<tr><td>Education in AI</td><td>Australian National University</td><td>Australia</td><td>5 years</td><td>$30,548</td><td><a href='https://www.australiannationaluniversity.edu' target='_blank'>Visit</a></td><td>Education</td><td>GRE required</td></tr>
+<tr><td>Commerce in Design</td><td>Harvard University</td><td>USA</td><td>3 years</td><td>$40,782</td><td><a href='https://www.harvarduniversity.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>GRE required</td></tr>
+<tr><td>IT in Finance</td><td>Delft University of Technology</td><td>Netherlands</td><td>2 years</td><td>$19,729</td><td><a href='https://www.delftuniversityoftechnology.edu' target='_blank'>Visit</a></td><td>IT</td><td>Portfolio Required</td></tr>
+<tr><td>Design in Law</td><td>Eindhoven University</td><td>Netherlands</td><td>5 years</td><td>$9,061</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Design</td><td>Portfolio Required</td></tr>
+<tr><td>Business in Biotech</td><td>University of Amsterdam</td><td>Netherlands</td><td>2 years</td><td>$9,606</td><td><a href='https://www.universityofamsterdam.edu' target='_blank'>Visit</a></td><td>Business</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Engineering in Design</td><td>University of Oxford</td><td>UK</td><td>3 years</td><td>$35,212</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>IELTS 6.5+</td></tr>
+<tr><td>Engineering in Law</td><td>Kyoto University</td><td>Japan</td><td>2 years</td><td>$14,826</td><td><a href='https://www.kyotouniversity.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>GRE required</td></tr>
+<tr><td>Business in AI</td><td>Heidelberg University</td><td>Germany</td><td>2 years</td><td>$250</td><td><a href='https://www.heidelberguniversity.edu' target='_blank'>Visit</a></td><td>Business</td><td>TOEFL 90+</td></tr>
+<tr><td>Medicine in Biotech</td><td>Eindhoven University</td><td>Netherlands</td><td>5 years</td><td>$18,575</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>12th with 75%+</td></tr>
+<tr><td>Architecture in Biotech</td><td>NTU</td><td>Singapore</td><td>5 years</td><td>$33,381</td><td><a href='https://www.ntu.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>Portfolio Required</td></tr>
+<tr><td>Arts in Management</td><td>University of Toronto</td><td>Canada</td><td>2 years</td><td>$19,465</td><td><a href='https://www.universityoftoronto.edu' target='_blank'>Visit</a></td><td>Arts</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Commerce in Civil Engg</td><td>University of Sydney</td><td>Australia</td><td>2 years</td><td>$22,884</td><td><a href='https://www.universityofsydney.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>12th with 75%+</td></tr>
+<tr><td>Arts in Biotech</td><td>Heidelberg University</td><td>Germany</td><td>2 years</td><td>$184</td><td><a href='https://www.heidelberguniversity.edu' target='_blank'>Visit</a></td><td>Arts</td><td>IELTS 6.5+</td></tr>
+<tr><td>Medicine in Civil Engg</td><td>SMU</td><td>Singapore</td><td>3 years</td><td>$31,826</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>Portfolio Required</td></tr>
+<tr><td>Commerce in Psychology</td><td>SMU</td><td>Singapore</td><td>4 years</td><td>$36,864</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>IELTS 6.5+</td></tr>
+<tr><td>Engineering in Biotech</td><td>NUS</td><td>Singapore</td><td>4 years</td><td>$36,957</td><td><a href='https://www.nus.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>Portfolio Required</td></tr>
+<tr><td>Science in Finance</td><td>SMU</td><td>Singapore</td><td>4 years</td><td>$30,201</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>Science</td><td>12th with 75%+</td></tr>
+<tr><td>Business in Civil Engg</td><td>RWTH Aachen</td><td>Germany</td><td>4 years</td><td>$1,153</td><td><a href='https://www.rwthaachen.edu' target='_blank'>Visit</a></td><td>Business</td><td>TOEFL 90+</td></tr>
+<tr><td>Science in AI</td><td>University of Sydney</td><td>Australia</td><td>3 years</td><td>$25,791</td><td><a href='https://www.universityofsydney.edu' target='_blank'>Visit</a></td><td>Science</td><td>TOEFL 90+</td></tr>
+<tr><td>Architecture in Civil Engg</td><td>University of Tokyo</td><td>Japan</td><td>2 years</td><td>$12,976</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>IELTS 6.5+</td></tr>
+<tr><td>Medicine in Civil Engg</td><td>University of Toronto</td><td>Canada</td><td>2 years</td><td>$26,708</td><td><a href='https://www.universityoftoronto.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Law in Law</td><td>RWTH Aachen</td><td>Germany</td><td>2 years</td><td>$240</td><td><a href='https://www.rwthaachen.edu' target='_blank'>Visit</a></td><td>Law</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Architecture in Biotech</td><td>University of Dubai</td><td>UAE</td><td>3 years</td><td>$23,842</td><td><a href='https://www.universityofdubai.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>TOEFL 90+</td></tr>
+<tr><td>IT in Law</td><td>RWTH Aachen</td><td>Germany</td><td>3 years</td><td>$1,075</td><td><a href='https://www.rwthaachen.edu' target='_blank'>Visit</a></td><td>IT</td><td>TOEFL 90+</td></tr>
+<tr><td>Education in Finance</td><td>University of Cambridge</td><td>UK</td><td>3 years</td><td>$21,887</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Education</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Law in AI</td><td>University of Toronto</td><td>Canada</td><td>5 years</td><td>$25,462</td><td><a href='https://www.universityoftoronto.edu' target='_blank'>Visit</a></td><td>Law</td><td>12th with 75%+</td></tr>
+<tr><td>Design in Civil Engg</td><td>MIT</td><td>USA</td><td>5 years</td><td>$38,240</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>Design</td><td>Portfolio Required</td></tr>
+<tr><td>Law in Psychology</td><td>University of Sydney</td><td>Australia</td><td>5 years</td><td>$23,134</td><td><a href='https://www.universityofsydney.edu' target='_blank'>Visit</a></td><td>Law</td><td>12th with 75%+</td></tr>
+<tr><td>IT in Design</td><td>Delft University of Technology</td><td>Netherlands</td><td>3 years</td><td>$15,583</td><td><a href='https://www.delftuniversityoftechnology.edu' target='_blank'>Visit</a></td><td>IT</td><td>12th with 75%+</td></tr>
+<tr><td>Pharmacy in Finance</td><td>Eindhoven University</td><td>Netherlands</td><td>3 years</td><td>$12,157</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Law in AI</td><td>MIT</td><td>USA</td><td>5 years</td><td>$49,871</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>Law</td><td>TOEFL 90+</td></tr>
+<tr><td>Commerce in Civil Engg</td><td>Imperial College London</td><td>UK</td><td>2 years</td><td>$35,018</td><td><a href='https://www.imperialcollegelondon.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>Portfolio Required</td></tr>
+<tr><td>Education in Data Science</td><td>SMU</td><td>Singapore</td><td>3 years</td><td>$36,437</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>Education</td><td>GRE required</td></tr>
+<tr><td>IT in Management</td><td>University of Amsterdam</td><td>Netherlands</td><td>5 years</td><td>$9,192</td><td><a href='https://www.universityofamsterdam.edu' target='_blank'>Visit</a></td><td>IT</td><td>Portfolio Required</td></tr>
+<tr><td>Law in Civil Engg</td><td>University of Melbourne</td><td>Australia</td><td>3 years</td><td>$24,819</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Law</td><td>TOEFL 90+</td></tr>
+<tr><td>Architecture in Civil Engg</td><td>University of British Columbia</td><td>Canada</td><td>4 years</td><td>$21,541</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>Portfolio Required</td></tr>
+<tr><td>Medicine in Data Science</td><td>University of Sydney</td><td>Australia</td><td>5 years</td><td>$30,267</td><td><a href='https://www.universityofsydney.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>12th with 75%+</td></tr>
+<tr><td>Law in Management</td><td>TU Munich</td><td>Germany</td><td>3 years</td><td>$1,201</td><td><a href='https://www.tumunich.edu' target='_blank'>Visit</a></td><td>Law</td><td>GRE required</td></tr>
+<tr><td>Pharmacy in Civil Engg</td><td>University of Melbourne</td><td>Australia</td><td>5 years</td><td>$28,186</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>GRE required</td></tr>
+<tr><td>Pharmacy in Psychology</td><td>Khalifa University</td><td>UAE</td><td>5 years</td><td>$12,035</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>TOEFL 90+</td></tr>
+<tr><td>Architecture in Law</td><td>RWTH Aachen</td><td>Germany</td><td>3 years</td><td>$962</td><td><a href='https://www.rwthaachen.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Engineering in Design</td><td>Heidelberg University</td><td>Germany</td><td>4 years</td><td>$917</td><td><a href='https://www.heidelberguniversity.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>GRE required</td></tr>
+<tr><td>Arts in Design</td><td>University of Melbourne</td><td>Australia</td><td>4 years</td><td>$23,611</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Arts</td><td>Bachelor’s Degree</td></tr>
+<tr><td>IT in Biotech</td><td>McGill University</td><td>Canada</td><td>3 years</td><td>$24,606</td><td><a href='https://www.mcgilluniversity.edu' target='_blank'>Visit</a></td><td>IT</td><td>12th with 75%+</td></tr>
+<tr><td>Medicine in Management</td><td>McGill University</td><td>Canada</td><td>4 years</td><td>$21,436</td><td><a href='https://www.mcgilluniversity.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>GRE required</td></tr>
+<tr><td>Arts in Finance</td><td>American University of Sharjah</td><td>UAE</td><td>4 years</td><td>$22,469</td><td><a href='https://www.americanuniversityofsharjah.edu' target='_blank'>Visit</a></td><td>Arts</td><td>TOEFL 90+</td></tr>
+<tr><td>Pharmacy in Design</td><td>University of Oxford</td><td>UK</td><td>5 years</td><td>$37,199</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>IELTS 6.5+</td></tr>
+<tr><td>IT in Design</td><td>University of Dubai</td><td>UAE</td><td>2 years</td><td>$17,584</td><td><a href='https://www.universityofdubai.edu' target='_blank'>Visit</a></td><td>IT</td><td>TOEFL 90+</td></tr>
+<tr><td>Education in Finance</td><td>MIT</td><td>USA</td><td>2 years</td><td>$35,657</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>Education</td><td>12th with 75%+</td></tr>
+<tr><td>Arts in Design</td><td>Stanford University</td><td>USA</td><td>5 years</td><td>$40,955</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>Arts</td><td>GRE required</td></tr>
+<tr><td>Arts in Psychology</td><td>MIT</td><td>USA</td><td>4 years</td><td>$54,278</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>Arts</td><td>12th with 75%+</td></tr>
+<tr><td>Engineering in Psychology</td><td>Imperial College London</td><td>UK</td><td>5 years</td><td>$37,564</td><td><a href='https://www.imperialcollegelondon.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>Portfolio Required</td></tr>
+<tr><td>Arts in Biotech</td><td>University of British Columbia</td><td>Canada</td><td>2 years</td><td>$29,987</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>Arts</td><td>TOEFL 90+</td></tr>
+<tr><td>Architecture in Design</td><td>MIT</td><td>USA</td><td>5 years</td><td>$56,476</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>TOEFL 90+</td></tr>
+<tr><td>Engineering in Data Science</td><td>Osaka University</td><td>Japan</td><td>4 years</td><td>$13,677</td><td><a href='https://www.osakauniversity.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>IELTS 6.5+</td></tr>
+<tr><td>Design in Management</td><td>University of Toronto</td><td>Canada</td><td>4 years</td><td>$21,894</td><td><a href='https://www.universityoftoronto.edu' target='_blank'>Visit</a></td><td>Design</td><td>GRE required</td></tr>
+<tr><td>Arts in Civil Engg</td><td>Osaka University</td><td>Japan</td><td>2 years</td><td>$9,789</td><td><a href='https://www.osakauniversity.edu' target='_blank'>Visit</a></td><td>Arts</td><td>GRE required</td></tr>
+<tr><td>Design in Law</td><td>SMU</td><td>Singapore</td><td>3 years</td><td>$31,675</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>Design</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Science in Civil Engg</td><td>TU Munich</td><td>Germany</td><td>3 years</td><td>$224</td><td><a href='https://www.tumunich.edu' target='_blank'>Visit</a></td><td>Science</td><td>GRE required</td></tr>
+<tr><td>Medicine in Management</td><td>Delft University of Technology</td><td>Netherlands</td><td>4 years</td><td>$19,353</td><td><a href='https://www.delftuniversityoftechnology.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>Portfolio Required</td></tr>
+<tr><td>IT in Law</td><td>MIT</td><td>USA</td><td>5 years</td><td>$36,758</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>IT</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Medicine in Design</td><td>RWTH Aachen</td><td>Germany</td><td>3 years</td><td>$190</td><td><a href='https://www.rwthaachen.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>GRE required</td></tr>
+<tr><td>Law in Design</td><td>University of Toronto</td><td>Canada</td><td>3 years</td><td>$21,854</td><td><a href='https://www.universityoftoronto.edu' target='_blank'>Visit</a></td><td>Law</td><td>IELTS 6.5+</td></tr>
+<tr><td>Engineering in Psychology</td><td>RWTH Aachen</td><td>Germany</td><td>3 years</td><td>$510</td><td><a href='https://www.rwthaachen.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Arts in AI</td><td>Stanford University</td><td>USA</td><td>5 years</td><td>$31,438</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>Arts</td><td>GRE required</td></tr>
+<tr><td>Pharmacy in Civil Engg</td><td>Australian National University</td><td>Australia</td><td>2 years</td><td>$21,020</td><td><a href='https://www.australiannationaluniversity.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Education in Management</td><td>University of Melbourne</td><td>Australia</td><td>3 years</td><td>$33,405</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Education</td><td>GRE required</td></tr>
+<tr><td>Pharmacy in Management</td><td>University of Tokyo</td><td>Japan</td><td>3 years</td><td>$8,164</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Arts in Management</td><td>University of Dubai</td><td>UAE</td><td>4 years</td><td>$15,510</td><td><a href='https://www.universityofdubai.edu' target='_blank'>Visit</a></td><td>Arts</td><td>12th with 75%+</td></tr>
+<tr><td>Pharmacy in Data Science</td><td>Khalifa University</td><td>UAE</td><td>5 years</td><td>$11,354</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>Portfolio Required</td></tr>
+<tr><td>Commerce in Finance</td><td>University of Sydney</td><td>Australia</td><td>5 years</td><td>$22,793</td><td><a href='https://www.universityofsydney.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>GRE required</td></tr>
+<tr><td>Medicine in Law</td><td>University of Amsterdam</td><td>Netherlands</td><td>4 years</td><td>$19,035</td><td><a href='https://www.universityofamsterdam.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>12th with 75%+</td></tr>
+<tr><td>Science in Biotech</td><td>University of Cambridge</td><td>UK</td><td>4 years</td><td>$27,862</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Science</td><td>TOEFL 90+</td></tr>
+<tr><td>Education in Biotech</td><td>TU Munich</td><td>Germany</td><td>2 years</td><td>$94</td><td><a href='https://www.tumunich.edu' target='_blank'>Visit</a></td><td>Education</td><td>12th with 75%+</td></tr>
+<tr><td>Architecture in AI</td><td>University of Tokyo</td><td>Japan</td><td>5 years</td><td>$6,777</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>Portfolio Required</td></tr>
+<tr><td>IT in Management</td><td>American University of Sharjah</td><td>UAE</td><td>3 years</td><td>$17,573</td><td><a href='https://www.americanuniversityofsharjah.edu' target='_blank'>Visit</a></td><td>IT</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Science in Data Science</td><td>University of British Columbia</td><td>Canada</td><td>2 years</td><td>$16,863</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>Science</td><td>IELTS 6.5+</td></tr>
+<tr><td>Law in Civil Engg</td><td>Osaka University</td><td>Japan</td><td>3 years</td><td>$8,711</td><td><a href='https://www.osakauniversity.edu' target='_blank'>Visit</a></td><td>Law</td><td>Portfolio Required</td></tr>
+<tr><td>Science in Civil Engg</td><td>McGill University</td><td>Canada</td><td>5 years</td><td>$15,833</td><td><a href='https://www.mcgilluniversity.edu' target='_blank'>Visit</a></td><td>Science</td><td>GRE required</td></tr>
+<tr><td>Architecture in Management</td><td>Australian National University</td><td>Australia</td><td>3 years</td><td>$22,038</td><td><a href='https://www.australiannationaluniversity.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>Portfolio Required</td></tr>
+<tr><td>Medicine in Psychology</td><td>Khalifa University</td><td>UAE</td><td>3 years</td><td>$10,935</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Science in Psychology</td><td>TU Munich</td><td>Germany</td><td>2 years</td><td>$1,271</td><td><a href='https://www.tumunich.edu' target='_blank'>Visit</a></td><td>Science</td><td>Bachelor’s Degree</td></tr>
+<tr><td>IT in Biotech</td><td>MIT</td><td>USA</td><td>4 years</td><td>$30,094</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>IT</td><td>IELTS 6.5+</td></tr>
+<tr><td>Arts in Data Science</td><td>University of Sydney</td><td>Australia</td><td>2 years</td><td>$26,790</td><td><a href='https://www.universityofsydney.edu' target='_blank'>Visit</a></td><td>Arts</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Medicine in Management</td><td>Imperial College London</td><td>UK</td><td>3 years</td><td>$32,224</td><td><a href='https://www.imperialcollegelondon.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>Portfolio Required</td></tr>
+<tr><td>Science in Design</td><td>University of British Columbia</td><td>Canada</td><td>3 years</td><td>$24,318</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>Science</td><td>IELTS 6.5+</td></tr>
+<tr><td>Commerce in AI</td><td>Heidelberg University</td><td>Germany</td><td>4 years</td><td>$522</td><td><a href='https://www.heidelberguniversity.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>Portfolio Required</td></tr>
+<tr><td>Business in Data Science</td><td>NUS</td><td>Singapore</td><td>3 years</td><td>$34,047</td><td><a href='https://www.nus.edu' target='_blank'>Visit</a></td><td>Business</td><td>IELTS 6.5+</td></tr>
+<tr><td>Arts in Design</td><td>Stanford University</td><td>USA</td><td>3 years</td><td>$49,683</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>Arts</td><td>12th with 75%+</td></tr>
+<tr><td>Engineering in Law</td><td>Delft University of Technology</td><td>Netherlands</td><td>3 years</td><td>$19,641</td><td><a href='https://www.delftuniversityoftechnology.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>Portfolio Required</td></tr>
+<tr><td>Law in Civil Engg</td><td>University of Dubai</td><td>UAE</td><td>4 years</td><td>$24,938</td><td><a href='https://www.universityofdubai.edu' target='_blank'>Visit</a></td><td>Law</td><td>IELTS 6.5+</td></tr>
+<tr><td>Design in Design</td><td>NTU</td><td>Singapore</td><td>5 years</td><td>$36,981</td><td><a href='https://www.ntu.edu' target='_blank'>Visit</a></td><td>Design</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Science in Data Science</td><td>University of Dubai</td><td>UAE</td><td>5 years</td><td>$14,173</td><td><a href='https://www.universityofdubai.edu' target='_blank'>Visit</a></td><td>Science</td><td>Bachelor’s Degree</td></tr>
+<tr><td>IT in AI</td><td>Harvard University</td><td>USA</td><td>5 years</td><td>$43,700</td><td><a href='https://www.harvarduniversity.edu' target='_blank'>Visit</a></td><td>IT</td><td>GRE required</td></tr>
+<tr><td>IT in Data Science</td><td>SMU</td><td>Singapore</td><td>4 years</td><td>$26,182</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>IT</td><td>GRE required</td></tr>
+<tr><td>Commerce in Biotech</td><td>University of Toronto</td><td>Canada</td><td>3 years</td><td>$26,459</td><td><a href='https://www.universityoftoronto.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>GRE required</td></tr>
+<tr><td>Commerce in Management</td><td>University of Melbourne</td><td>Australia</td><td>5 years</td><td>$27,591</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>TOEFL 90+</td></tr>
+<tr><td>Arts in AI</td><td>University of Melbourne</td><td>Australia</td><td>4 years</td><td>$19,884</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Arts</td><td>TOEFL 90+</td></tr>
+<tr><td>Commerce in Data Science</td><td>Khalifa University</td><td>UAE</td><td>5 years</td><td>$14,512</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>GRE required</td></tr>
+<tr><td>Business in Law</td><td>Imperial College London</td><td>UK</td><td>4 years</td><td>$20,046</td><td><a href='https://www.imperialcollegelondon.edu' target='_blank'>Visit</a></td><td>Business</td><td>IELTS 6.5+</td></tr>
+<tr><td>Arts in AI</td><td>Eindhoven University</td><td>Netherlands</td><td>3 years</td><td>$19,554</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Arts</td><td>IELTS 6.5+</td></tr>
+<tr><td>IT in Biotech</td><td>Harvard University</td><td>USA</td><td>5 years</td><td>$34,695</td><td><a href='https://www.harvarduniversity.edu' target='_blank'>Visit</a></td><td>IT</td><td>Portfolio Required</td></tr>
+<tr><td>Arts in Civil Engg</td><td>Harvard University</td><td>USA</td><td>5 years</td><td>$34,385</td><td><a href='https://www.harvarduniversity.edu' target='_blank'>Visit</a></td><td>Arts</td><td>TOEFL 90+</td></tr>
+<tr><td>Engineering in Psychology</td><td>University of Amsterdam</td><td>Netherlands</td><td>2 years</td><td>$18,821</td><td><a href='https://www.universityofamsterdam.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>TOEFL 90+</td></tr>
+<tr><td>Pharmacy in Design</td><td>McGill University</td><td>Canada</td><td>5 years</td><td>$25,755</td><td><a href='https://www.mcgilluniversity.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>Portfolio Required</td></tr>
+<tr><td>Pharmacy in Law</td><td>University of Cambridge</td><td>UK</td><td>4 years</td><td>$36,213</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>Bachelor’s Degree</td></tr>
+<tr><td>IT in Design</td><td>Harvard University</td><td>USA</td><td>3 years</td><td>$38,629</td><td><a href='https://www.harvarduniversity.edu' target='_blank'>Visit</a></td><td>IT</td><td>IELTS 6.5+</td></tr>
+<tr><td>Law in Design</td><td>University of Cambridge</td><td>UK</td><td>3 years</td><td>$39,161</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Law</td><td>GRE required</td></tr>
+<tr><td>IT in Finance</td><td>University of Tokyo</td><td>Japan</td><td>3 years</td><td>$12,433</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>IT</td><td>GRE required</td></tr>
+<tr><td>Design in Psychology</td><td>American University of Sharjah</td><td>UAE</td><td>3 years</td><td>$22,274</td><td><a href='https://www.americanuniversityofsharjah.edu' target='_blank'>Visit</a></td><td>Design</td><td>TOEFL 90+</td></tr>
+<tr><td>Science in Design</td><td>RWTH Aachen</td><td>Germany</td><td>2 years</td><td>$799</td><td><a href='https://www.rwthaachen.edu' target='_blank'>Visit</a></td><td>Science</td><td>12th with 75%+</td></tr>
+<tr><td>Architecture in Data Science</td><td>University of Oxford</td><td>UK</td><td>2 years</td><td>$39,804</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Law in Data Science</td><td>University of Dubai</td><td>UAE</td><td>2 years</td><td>$13,261</td><td><a href='https://www.universityofdubai.edu' target='_blank'>Visit</a></td><td>Law</td><td>12th with 75%+</td></tr>
+<tr><td>Design in Biotech</td><td>Khalifa University</td><td>UAE</td><td>3 years</td><td>$22,017</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Design</td><td>IELTS 6.5+</td></tr>
+<tr><td>Pharmacy in Finance</td><td>Australian National University</td><td>Australia</td><td>3 years</td><td>$31,366</td><td><a href='https://www.australiannationaluniversity.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>12th with 75%+</td></tr>
+<tr><td>Pharmacy in Data Science</td><td>Harvard University</td><td>USA</td><td>4 years</td><td>$35,068</td><td><a href='https://www.harvarduniversity.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>TOEFL 90+</td></tr>
+<tr><td>Architecture in Management</td><td>Harvard University</td><td>USA</td><td>3 years</td><td>$53,687</td><td><a href='https://www.harvarduniversity.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>TOEFL 90+</td></tr>
+<tr><td>Arts in Civil Engg</td><td>University of British Columbia</td><td>Canada</td><td>5 years</td><td>$27,791</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>Arts</td><td>Portfolio Required</td></tr>
+<tr><td>Design in Civil Engg</td><td>Eindhoven University</td><td>Netherlands</td><td>3 years</td><td>$14,215</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Design</td><td>IELTS 6.5+</td></tr>
+<tr><td>Business in Biotech</td><td>Eindhoven University</td><td>Netherlands</td><td>3 years</td><td>$16,214</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Business</td><td>12th with 75%+</td></tr>
+<tr><td>Engineering in AI</td><td>Eindhoven University</td><td>Netherlands</td><td>2 years</td><td>$15,823</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>IELTS 6.5+</td></tr>
+<tr><td>Law in Data Science</td><td>Eindhoven University</td><td>Netherlands</td><td>3 years</td><td>$16,354</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Law</td><td>TOEFL 90+</td></tr>
+<tr><td>Design in Finance</td><td>University of Melbourne</td><td>Australia</td><td>4 years</td><td>$29,729</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Design</td><td>TOEFL 90+</td></tr>
+<tr><td>Design in AI</td><td>American University of Sharjah</td><td>UAE</td><td>2 years</td><td>$23,199</td><td><a href='https://www.americanuniversityofsharjah.edu' target='_blank'>Visit</a></td><td>Design</td><td>Portfolio Required</td></tr>
+<tr><td>Law in Law</td><td>NUS</td><td>Singapore</td><td>3 years</td><td>$30,824</td><td><a href='https://www.nus.edu' target='_blank'>Visit</a></td><td>Law</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Engineering in Law</td><td>University of Toronto</td><td>Canada</td><td>2 years</td><td>$26,464</td><td><a href='https://www.universityoftoronto.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>IELTS 6.5+</td></tr>
+<tr><td>Arts in Law</td><td>Osaka University</td><td>Japan</td><td>2 years</td><td>$11,289</td><td><a href='https://www.osakauniversity.edu' target='_blank'>Visit</a></td><td>Arts</td><td>12th with 75%+</td></tr>
+<tr><td>IT in Finance</td><td>University of British Columbia</td><td>Canada</td><td>2 years</td><td>$16,771</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>IT</td><td>12th with 75%+</td></tr>
+<tr><td>Engineering in Data Science</td><td>Stanford University</td><td>USA</td><td>2 years</td><td>$48,545</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>GRE required</td></tr>
+<tr><td>Architecture in Biotech</td><td>McGill University</td><td>Canada</td><td>4 years</td><td>$24,430</td><td><a href='https://www.mcgilluniversity.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>TOEFL 90+</td></tr>
+<tr><td>Law in Biotech</td><td>University of Dubai</td><td>UAE</td><td>2 years</td><td>$11,543</td><td><a href='https://www.universityofdubai.edu' target='_blank'>Visit</a></td><td>Law</td><td>12th with 75%+</td></tr>
+<tr><td>Education in Psychology</td><td>Khalifa University</td><td>UAE</td><td>2 years</td><td>$18,590</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Education</td><td>12th with 75%+</td></tr>
+<tr><td>Arts in Civil Engg</td><td>University of Melbourne</td><td>Australia</td><td>2 years</td><td>$26,236</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Arts</td><td>12th with 75%+</td></tr>
+<tr><td>Engineering in Law</td><td>Imperial College London</td><td>UK</td><td>4 years</td><td>$27,657</td><td><a href='https://www.imperialcollegelondon.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>GRE required</td></tr>
+<tr><td>Law in Design</td><td>Khalifa University</td><td>UAE</td><td>5 years</td><td>$10,400</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Law</td><td>IELTS 6.5+</td></tr>
+<tr><td>Medicine in Law</td><td>Khalifa University</td><td>UAE</td><td>5 years</td><td>$22,002</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>GRE required</td></tr>
+<tr><td>Architecture in AI</td><td>University of Oxford</td><td>UK</td><td>4 years</td><td>$34,565</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>Portfolio Required</td></tr>
+<tr><td>Engineering in Law</td><td>Australian National University</td><td>Australia</td><td>4 years</td><td>$18,646</td><td><a href='https://www.australiannationaluniversity.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>12th with 75%+</td></tr>
+<tr><td>Medicine in Data Science</td><td>University of Amsterdam</td><td>Netherlands</td><td>4 years</td><td>$9,466</td><td><a href='https://www.universityofamsterdam.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Arts in Civil Engg</td><td>Osaka University</td><td>Japan</td><td>3 years</td><td>$10,556</td><td><a href='https://www.osakauniversity.edu' target='_blank'>Visit</a></td><td>Arts</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Business in Design</td><td>Khalifa University</td><td>UAE</td><td>3 years</td><td>$12,233</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Business</td><td>TOEFL 90+</td></tr>
+<tr><td>Medicine in Design</td><td>RWTH Aachen</td><td>Germany</td><td>2 years</td><td>$313</td><td><a href='https://www.rwthaachen.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>IELTS 6.5+</td></tr>
+<tr><td>IT in Civil Engg</td><td>Eindhoven University</td><td>Netherlands</td><td>3 years</td><td>$9,964</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>IT</td><td>GRE required</td></tr>
+<tr><td>Education in Design</td><td>MIT</td><td>USA</td><td>2 years</td><td>$35,763</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>Education</td><td>12th with 75%+</td></tr>
+<tr><td>Science in Finance</td><td>Australian National University</td><td>Australia</td><td>5 years</td><td>$21,180</td><td><a href='https://www.australiannationaluniversity.edu' target='_blank'>Visit</a></td><td>Science</td><td>12th with 75%+</td></tr>
+<tr><td>Architecture in Biotech</td><td>McGill University</td><td>Canada</td><td>2 years</td><td>$22,313</td><td><a href='https://www.mcgilluniversity.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>GRE required</td></tr>
+<tr><td>Medicine in Civil Engg</td><td>University of Cambridge</td><td>UK</td><td>2 years</td><td>$23,158</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Science in Finance</td><td>MIT</td><td>USA</td><td>2 years</td><td>$57,959</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>Science</td><td>IELTS 6.5+</td></tr>
+<tr><td>Education in Psychology</td><td>MIT</td><td>USA</td><td>4 years</td><td>$52,485</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>Education</td><td>Portfolio Required</td></tr>
+<tr><td>Commerce in Finance</td><td>Delft University of Technology</td><td>Netherlands</td><td>4 years</td><td>$9,611</td><td><a href='https://www.delftuniversityoftechnology.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>GRE required</td></tr>
+<tr><td>Engineering in Design</td><td>University of British Columbia</td><td>Canada</td><td>3 years</td><td>$15,606</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>GRE required</td></tr>
+<tr><td>Engineering in Biotech</td><td>NTU</td><td>Singapore</td><td>4 years</td><td>$26,207</td><td><a href='https://www.ntu.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>IELTS 6.5+</td></tr>
+<tr><td>Commerce in Management</td><td>Khalifa University</td><td>UAE</td><td>2 years</td><td>$11,507</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>Portfolio Required</td></tr>
+<tr><td>Arts in Finance</td><td>NUS</td><td>Singapore</td><td>2 years</td><td>$25,879</td><td><a href='https://www.nus.edu' target='_blank'>Visit</a></td><td>Arts</td><td>IELTS 6.5+</td></tr>
+<tr><td>Science in Finance</td><td>University of Toronto</td><td>Canada</td><td>2 years</td><td>$26,947</td><td><a href='https://www.universityoftoronto.edu' target='_blank'>Visit</a></td><td>Science</td><td>12th with 75%+</td></tr>
+<tr><td>Medicine in Biotech</td><td>Eindhoven University</td><td>Netherlands</td><td>3 years</td><td>$13,003</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Pharmacy in Management</td><td>University of Toronto</td><td>Canada</td><td>2 years</td><td>$27,186</td><td><a href='https://www.universityoftoronto.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>TOEFL 90+</td></tr>
+<tr><td>Architecture in Law</td><td>MIT</td><td>USA</td><td>3 years</td><td>$55,123</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>IELTS 6.5+</td></tr>
+<tr><td>Business in Psychology</td><td>SMU</td><td>Singapore</td><td>5 years</td><td>$33,442</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>Business</td><td>IELTS 6.5+</td></tr>
+<tr><td>Science in Design</td><td>American University of Sharjah</td><td>UAE</td><td>5 years</td><td>$19,571</td><td><a href='https://www.americanuniversityofsharjah.edu' target='_blank'>Visit</a></td><td>Science</td><td>IELTS 6.5+</td></tr>
+<tr><td>Medicine in Law</td><td>RWTH Aachen</td><td>Germany</td><td>2 years</td><td>$1,342</td><td><a href='https://www.rwthaachen.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Business in Finance</td><td>University of Amsterdam</td><td>Netherlands</td><td>5 years</td><td>$19,415</td><td><a href='https://www.universityofamsterdam.edu' target='_blank'>Visit</a></td><td>Business</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Medicine in Civil Engg</td><td>Osaka University</td><td>Japan</td><td>5 years</td><td>$11,106</td><td><a href='https://www.osakauniversity.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>12th with 75%+</td></tr>
+<tr><td>Pharmacy in Biotech</td><td>MIT</td><td>USA</td><td>2 years</td><td>$58,857</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>TOEFL 90+</td></tr>
+<tr><td>Engineering in Design</td><td>RWTH Aachen</td><td>Germany</td><td>5 years</td><td>$1,049</td><td><a href='https://www.rwthaachen.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>GRE required</td></tr>
+<tr><td>Science in Finance</td><td>American University of Sharjah</td><td>UAE</td><td>5 years</td><td>$21,627</td><td><a href='https://www.americanuniversityofsharjah.edu' target='_blank'>Visit</a></td><td>Science</td><td>IELTS 6.5+</td></tr>
+<tr><td>Architecture in Management</td><td>Osaka University</td><td>Japan</td><td>3 years</td><td>$14,197</td><td><a href='https://www.osakauniversity.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>12th with 75%+</td></tr>
+<tr><td>Pharmacy in Management</td><td>American University of Sharjah</td><td>UAE</td><td>2 years</td><td>$16,426</td><td><a href='https://www.americanuniversityofsharjah.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>12th with 75%+</td></tr>
+<tr><td>Medicine in Management</td><td>McGill University</td><td>Canada</td><td>5 years</td><td>$26,181</td><td><a href='https://www.mcgilluniversity.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>12th with 75%+</td></tr>
+<tr><td>Design in Finance</td><td>Stanford University</td><td>USA</td><td>4 years</td><td>$41,931</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>Design</td><td>Portfolio Required</td></tr>
+<tr><td>Science in AI</td><td>University of Tokyo</td><td>Japan</td><td>5 years</td><td>$9,948</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Science</td><td>Portfolio Required</td></tr>
+<tr><td>Architecture in Management</td><td>Osaka University</td><td>Japan</td><td>2 years</td><td>$10,606</td><td><a href='https://www.osakauniversity.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>IELTS 6.5+</td></tr>
+<tr><td>Education in Civil Engg</td><td>Kyoto University</td><td>Japan</td><td>4 years</td><td>$6,312</td><td><a href='https://www.kyotouniversity.edu' target='_blank'>Visit</a></td><td>Education</td><td>12th with 75%+</td></tr>
+<tr><td>Science in Finance</td><td>Osaka University</td><td>Japan</td><td>5 years</td><td>$5,204</td><td><a href='https://www.osakauniversity.edu' target='_blank'>Visit</a></td><td>Science</td><td>Portfolio Required</td></tr>
+<tr><td>Medicine in Civil Engg</td><td>University of Tokyo</td><td>Japan</td><td>5 years</td><td>$11,164</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>TOEFL 90+</td></tr>
+<tr><td>Engineering in Data Science</td><td>Stanford University</td><td>USA</td><td>4 years</td><td>$46,955</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>IELTS 6.5+</td></tr>
+<tr><td>Business in Law</td><td>SMU</td><td>Singapore</td><td>2 years</td><td>$29,250</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>Business</td><td>GRE required</td></tr>
+<tr><td>Engineering in Biotech</td><td>American University of Sharjah</td><td>UAE</td><td>4 years</td><td>$20,726</td><td><a href='https://www.americanuniversityofsharjah.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>TOEFL 90+</td></tr>
+<tr><td>Architecture in Law</td><td>Osaka University</td><td>Japan</td><td>5 years</td><td>$7,485</td><td><a href='https://www.osakauniversity.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>IELTS 6.5+</td></tr>
+<tr><td>Engineering in AI</td><td>Delft University of Technology</td><td>Netherlands</td><td>3 years</td><td>$10,061</td><td><a href='https://www.delftuniversityoftechnology.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>TOEFL 90+</td></tr>
+<tr><td>Law in Finance</td><td>Imperial College London</td><td>UK</td><td>4 years</td><td>$39,057</td><td><a href='https://www.imperialcollegelondon.edu' target='_blank'>Visit</a></td><td>Law</td><td>Portfolio Required</td></tr>
+<tr><td>Design in Design</td><td>University of British Columbia</td><td>Canada</td><td>4 years</td><td>$27,610</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>Design</td><td>TOEFL 90+</td></tr>
+<tr><td>Architecture in Civil Engg</td><td>University of Toronto</td><td>Canada</td><td>4 years</td><td>$22,543</td><td><a href='https://www.universityoftoronto.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>12th with 75%+</td></tr>
+<tr><td>Commerce in Finance</td><td>Khalifa University</td><td>UAE</td><td>4 years</td><td>$16,615</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>TOEFL 90+</td></tr>
+<tr><td>Arts in Law</td><td>American University of Sharjah</td><td>UAE</td><td>4 years</td><td>$20,696</td><td><a href='https://www.americanuniversityofsharjah.edu' target='_blank'>Visit</a></td><td>Arts</td><td>TOEFL 90+</td></tr>
+<tr><td>Science in Law</td><td>NTU</td><td>Singapore</td><td>3 years</td><td>$28,489</td><td><a href='https://www.ntu.edu' target='_blank'>Visit</a></td><td>Science</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Engineering in Finance</td><td>NUS</td><td>Singapore</td><td>3 years</td><td>$30,841</td><td><a href='https://www.nus.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>TOEFL 90+</td></tr>
+<tr><td>Engineering in Biotech</td><td>SMU</td><td>Singapore</td><td>2 years</td><td>$35,849</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>Portfolio Required</td></tr>
+<tr><td>Business in Law</td><td>University of Oxford</td><td>UK</td><td>2 years</td><td>$32,333</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Business</td><td>GRE required</td></tr>
+<tr><td>Medicine in Data Science</td><td>University of Sydney</td><td>Australia</td><td>5 years</td><td>$32,176</td><td><a href='https://www.universityofsydney.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>12th with 75%+</td></tr>
+<tr><td>Pharmacy in Design</td><td>Heidelberg University</td><td>Germany</td><td>3 years</td><td>$127</td><td><a href='https://www.heidelberguniversity.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>TOEFL 90+</td></tr>
+<tr><td>Design in Biotech</td><td>NTU</td><td>Singapore</td><td>5 years</td><td>$25,695</td><td><a href='https://www.ntu.edu' target='_blank'>Visit</a></td><td>Design</td><td>12th with 75%+</td></tr>
+<tr><td>Commerce in Design</td><td>University of Toronto</td><td>Canada</td><td>5 years</td><td>$19,440</td><td><a href='https://www.universityoftoronto.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Pharmacy in Design</td><td>American University of Sharjah</td><td>UAE</td><td>5 years</td><td>$23,459</td><td><a href='https://www.americanuniversityofsharjah.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>12th with 75%+</td></tr>
+<tr><td>Engineering in Finance</td><td>Kyoto University</td><td>Japan</td><td>2 years</td><td>$8,889</td><td><a href='https://www.kyotouniversity.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>12th with 75%+</td></tr>
+<tr><td>Architecture in Design</td><td>University of Oxford</td><td>UK</td><td>2 years</td><td>$20,257</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>12th with 75%+</td></tr>
+<tr><td>Commerce in Data Science</td><td>University of Melbourne</td><td>Australia</td><td>2 years</td><td>$26,077</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>TOEFL 90+</td></tr>
+<tr><td>IT in AI</td><td>University of Amsterdam</td><td>Netherlands</td><td>2 years</td><td>$14,813</td><td><a href='https://www.universityofamsterdam.edu' target='_blank'>Visit</a></td><td>IT</td><td>TOEFL 90+</td></tr>
+<tr><td>Commerce in Biotech</td><td>Australian National University</td><td>Australia</td><td>3 years</td><td>$34,507</td><td><a href='https://www.australiannationaluniversity.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>IELTS 6.5+</td></tr>
+<tr><td>IT in Design</td><td>Stanford University</td><td>USA</td><td>3 years</td><td>$38,295</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>IT</td><td>TOEFL 90+</td></tr>
+<tr><td>Arts in Design</td><td>University of Sydney</td><td>Australia</td><td>2 years</td><td>$29,555</td><td><a href='https://www.universityofsydney.edu' target='_blank'>Visit</a></td><td>Arts</td><td>Portfolio Required</td></tr>
+<tr><td>Education in Law</td><td>University of Amsterdam</td><td>Netherlands</td><td>5 years</td><td>$13,745</td><td><a href='https://www.universityofamsterdam.edu' target='_blank'>Visit</a></td><td>Education</td><td>GRE required</td></tr>
+<tr><td>Law in Law</td><td>University of Oxford</td><td>UK</td><td>2 years</td><td>$37,379</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Law</td><td>12th with 75%+</td></tr>
+<tr><td>Business in Psychology</td><td>RWTH Aachen</td><td>Germany</td><td>5 years</td><td>$105</td><td><a href='https://www.rwthaachen.edu' target='_blank'>Visit</a></td><td>Business</td><td>GRE required</td></tr>
+<tr><td>Engineering in Management</td><td>University of Tokyo</td><td>Japan</td><td>4 years</td><td>$5,698</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Engineering in Civil Engg</td><td>University of Oxford</td><td>UK</td><td>2 years</td><td>$24,767</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Business in Civil Engg</td><td>University of Oxford</td><td>UK</td><td>5 years</td><td>$36,636</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Business</td><td>TOEFL 90+</td></tr>
+<tr><td>Business in Management</td><td>University of Melbourne</td><td>Australia</td><td>5 years</td><td>$23,275</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Business</td><td>12th with 75%+</td></tr>
+<tr><td>IT in AI</td><td>SMU</td><td>Singapore</td><td>3 years</td><td>$30,633</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>IT</td><td>TOEFL 90+</td></tr>
+<tr><td>Engineering in Law</td><td>University of Cambridge</td><td>UK</td><td>4 years</td><td>$35,114</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>TOEFL 90+</td></tr>
+<tr><td>Design in Law</td><td>RWTH Aachen</td><td>Germany</td><td>4 years</td><td>$727</td><td><a href='https://www.rwthaachen.edu' target='_blank'>Visit</a></td><td>Design</td><td>Bachelor’s Degree</td></tr>
+<tr><td>IT in Psychology</td><td>McGill University</td><td>Canada</td><td>3 years</td><td>$15,876</td><td><a href='https://www.mcgilluniversity.edu' target='_blank'>Visit</a></td><td>IT</td><td>IELTS 6.5+</td></tr>
+<tr><td>Education in Law</td><td>Khalifa University</td><td>UAE</td><td>3 years</td><td>$23,758</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Education</td><td>Bachelor’s Degree</td></tr>
+<tr><td>IT in AI</td><td>Stanford University</td><td>USA</td><td>5 years</td><td>$38,401</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>IT</td><td>TOEFL 90+</td></tr>
+<tr><td>Architecture in Design</td><td>University of Oxford</td><td>UK</td><td>3 years</td><td>$38,850</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>Portfolio Required</td></tr>
+<tr><td>Business in Design</td><td>Delft University of Technology</td><td>Netherlands</td><td>4 years</td><td>$10,605</td><td><a href='https://www.delftuniversityoftechnology.edu' target='_blank'>Visit</a></td><td>Business</td><td>Portfolio Required</td></tr>
+<tr><td>Architecture in Finance</td><td>NTU</td><td>Singapore</td><td>2 years</td><td>$34,677</td><td><a href='https://www.ntu.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Business in Psychology</td><td>Imperial College London</td><td>UK</td><td>3 years</td><td>$25,248</td><td><a href='https://www.imperialcollegelondon.edu' target='_blank'>Visit</a></td><td>Business</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Education in Management</td><td>University of British Columbia</td><td>Canada</td><td>3 years</td><td>$28,398</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>Education</td><td>IELTS 6.5+</td></tr>
+<tr><td>Engineering in Law</td><td>University of Oxford</td><td>UK</td><td>5 years</td><td>$25,521</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>Portfolio Required</td></tr>
+<tr><td>Medicine in Management</td><td>University of Melbourne</td><td>Australia</td><td>5 years</td><td>$20,156</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Business in Biotech</td><td>Imperial College London</td><td>UK</td><td>4 years</td><td>$23,887</td><td><a href='https://www.imperialcollegelondon.edu' target='_blank'>Visit</a></td><td>Business</td><td>GRE required</td></tr>
+<tr><td>Pharmacy in Finance</td><td>Khalifa University</td><td>UAE</td><td>2 years</td><td>$13,486</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>Bachelor’s Degree</td></tr>
+<tr><td>IT in Psychology</td><td>Khalifa University</td><td>UAE</td><td>4 years</td><td>$15,890</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>IT</td><td>Portfolio Required</td></tr>
+<tr><td>IT in Finance</td><td>McGill University</td><td>Canada</td><td>2 years</td><td>$21,562</td><td><a href='https://www.mcgilluniversity.edu' target='_blank'>Visit</a></td><td>IT</td><td>IELTS 6.5+</td></tr>
+<tr><td>Pharmacy in Psychology</td><td>University of Cambridge</td><td>UK</td><td>3 years</td><td>$38,442</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>12th with 75%+</td></tr>
+<tr><td>Medicine in Biotech</td><td>Khalifa University</td><td>UAE</td><td>4 years</td><td>$12,821</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>TOEFL 90+</td></tr>
+<tr><td>Design in Biotech</td><td>TU Munich</td><td>Germany</td><td>5 years</td><td>$294</td><td><a href='https://www.tumunich.edu' target='_blank'>Visit</a></td><td>Design</td><td>GRE required</td></tr>
+<tr><td>Arts in Biotech</td><td>Harvard University</td><td>USA</td><td>4 years</td><td>$32,040</td><td><a href='https://www.harvarduniversity.edu' target='_blank'>Visit</a></td><td>Arts</td><td>12th with 75%+</td></tr>
+<tr><td>Medicine in Finance</td><td>MIT</td><td>USA</td><td>4 years</td><td>$43,148</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>TOEFL 90+</td></tr>
+<tr><td>Law in AI</td><td>Eindhoven University</td><td>Netherlands</td><td>3 years</td><td>$12,495</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Law</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Arts in Psychology</td><td>MIT</td><td>USA</td><td>3 years</td><td>$43,014</td><td><a href='https://www.mit.edu' target='_blank'>Visit</a></td><td>Arts</td><td>12th with 75%+</td></tr>
+<tr><td>Design in Design</td><td>University of Amsterdam</td><td>Netherlands</td><td>2 years</td><td>$11,689</td><td><a href='https://www.universityofamsterdam.edu' target='_blank'>Visit</a></td><td>Design</td><td>IELTS 6.5+</td></tr>
+<tr><td>Business in Management</td><td>NTU</td><td>Singapore</td><td>5 years</td><td>$26,119</td><td><a href='https://www.ntu.edu' target='_blank'>Visit</a></td><td>Business</td><td>Portfolio Required</td></tr>
+<tr><td>Engineering in Civil Engg</td><td>University of Tokyo</td><td>Japan</td><td>4 years</td><td>$12,563</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Engineering</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Business in Design</td><td>SMU</td><td>Singapore</td><td>3 years</td><td>$38,825</td><td><a href='https://www.smu.edu' target='_blank'>Visit</a></td><td>Business</td><td>Portfolio Required</td></tr>
+<tr><td>Law in Civil Engg</td><td>NUS</td><td>Singapore</td><td>4 years</td><td>$39,820</td><td><a href='https://www.nus.edu' target='_blank'>Visit</a></td><td>Law</td><td>IELTS 6.5+</td></tr>
+<tr><td>Pharmacy in Design</td><td>Kyoto University</td><td>Japan</td><td>4 years</td><td>$8,242</td><td><a href='https://www.kyotouniversity.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>Portfolio Required</td></tr>
+<tr><td>Commerce in Biotech</td><td>University of Dubai</td><td>UAE</td><td>3 years</td><td>$10,459</td><td><a href='https://www.universityofdubai.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>GRE required</td></tr>
+<tr><td>Education in Law</td><td>University of Cambridge</td><td>UK</td><td>3 years</td><td>$33,714</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Education</td><td>Portfolio Required</td></tr>
+<tr><td>IT in Finance</td><td>University of British Columbia</td><td>Canada</td><td>3 years</td><td>$26,569</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>IT</td><td>Portfolio Required</td></tr>
+<tr><td>Arts in Management</td><td>University of Cambridge</td><td>UK</td><td>4 years</td><td>$22,218</td><td><a href='https://www.universityofcambridge.edu' target='_blank'>Visit</a></td><td>Arts</td><td>TOEFL 90+</td></tr>
+<tr><td>Law in Civil Engg</td><td>University of Tokyo</td><td>Japan</td><td>5 years</td><td>$11,241</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Law</td><td>GRE required</td></tr>
+<tr><td>Architecture in Law</td><td>University of Melbourne</td><td>Australia</td><td>3 years</td><td>$26,680</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Architecture</td><td>12th with 75%+</td></tr>
+<tr><td>Commerce in Data Science</td><td>Osaka University</td><td>Japan</td><td>3 years</td><td>$7,977</td><td><a href='https://www.osakauniversity.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>Portfolio Required</td></tr>
+<tr><td>Law in Management</td><td>RWTH Aachen</td><td>Germany</td><td>3 years</td><td>$223</td><td><a href='https://www.rwthaachen.edu' target='_blank'>Visit</a></td><td>Law</td><td>Portfolio Required</td></tr>
+<tr><td>Arts in Law</td><td>Kyoto University</td><td>Japan</td><td>5 years</td><td>$6,502</td><td><a href='https://www.kyotouniversity.edu' target='_blank'>Visit</a></td><td>Arts</td><td>TOEFL 90+</td></tr>
+<tr><td>Business in Biotech</td><td>University of British Columbia</td><td>Canada</td><td>3 years</td><td>$15,466</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>Business</td><td>GRE required</td></tr>
+<tr><td>Design in Data Science</td><td>University of Melbourne</td><td>Australia</td><td>3 years</td><td>$23,317</td><td><a href='https://www.universityofmelbourne.edu' target='_blank'>Visit</a></td><td>Design</td><td>TOEFL 90+</td></tr>
+<tr><td>Design in Law</td><td>University of Tokyo</td><td>Japan</td><td>5 years</td><td>$5,936</td><td><a href='https://www.universityoftokyo.edu' target='_blank'>Visit</a></td><td>Design</td><td>GRE required</td></tr>
+<tr><td>Commerce in Data Science</td><td>Khalifa University</td><td>UAE</td><td>2 years</td><td>$20,133</td><td><a href='https://www.khalifauniversity.edu' target='_blank'>Visit</a></td><td>Commerce</td><td>GRE required</td></tr>
+<tr><td>Law in Civil Engg</td><td>Australian National University</td><td>Australia</td><td>5 years</td><td>$26,067</td><td><a href='https://www.australiannationaluniversity.edu' target='_blank'>Visit</a></td><td>Law</td><td>12th with 75%+</td></tr>
+<tr><td>Business in Data Science</td><td>University of Oxford</td><td>UK</td><td>3 years</td><td>$27,761</td><td><a href='https://www.universityofoxford.edu' target='_blank'>Visit</a></td><td>Business</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Business in AI</td><td>Stanford University</td><td>USA</td><td>3 years</td><td>$35,597</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>Business</td><td>12th with 75%+</td></tr>
+<tr><td>Pharmacy in Management</td><td>University of British Columbia</td><td>Canada</td><td>3 years</td><td>$27,983</td><td><a href='https://www.universityofbritishcolumbia.edu' target='_blank'>Visit</a></td><td>Pharmacy</td><td>Bachelor’s Degree</td></tr>
+<tr><td>Business in Civil Engg</td><td>Osaka University</td><td>Japan</td><td>2 years</td><td>$6,995</td><td><a href='https://www.osakauniversity.edu' target='_blank'>Visit</a></td><td>Business</td><td>GRE required</td></tr>
+<tr><td>Medicine in Law</td><td>NUS</td><td>Singapore</td><td>3 years</td><td>$25,671</td><td><a href='https://www.nus.edu' target='_blank'>Visit</a></td><td>Medicine</td><td>Portfolio Required</td></tr>
+<tr><td>Business in Biotech</td><td>McGill University</td><td>Canada</td><td>3 years</td><td>$16,769</td><td><a href='https://www.mcgilluniversity.edu' target='_blank'>Visit</a></td><td>Business</td><td>TOEFL 90+</td></tr>
+<tr><td>Business in Management</td><td>Heidelberg University</td><td>Germany</td><td>4 years</td><td>$328</td><td><a href='https://www.heidelberguniversity.edu' target='_blank'>Visit</a></td><td>Business</td><td>TOEFL 90+</td></tr>
+<tr><td>Arts in Data Science</td><td>Delft University of Technology</td><td>Netherlands</td><td>5 years</td><td>$11,325</td><td><a href='https://www.delftuniversityoftechnology.edu' target='_blank'>Visit</a></td><td>Arts</td><td>GRE required</td></tr>
+<tr><td>Science in Psychology</td><td>Stanford University</td><td>USA</td><td>3 years</td><td>$41,757</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>Science</td><td>TOEFL 90+</td></tr>
+<tr><td>Arts in Law</td><td>NUS</td><td>Singapore</td><td>3 years</td><td>$31,602</td><td><a href='https://www.nus.edu' target='_blank'>Visit</a></td><td>Arts</td><td>TOEFL 90+</td></tr>
+<tr><td>IT in AI</td><td>American University of Sharjah</td><td>UAE</td><td>5 years</td><td>$23,043</td><td><a href='https://www.americanuniversityofsharjah.edu' target='_blank'>Visit</a></td><td>IT</td><td>IELTS 6.5+</td></tr>
+<tr><td>Science in Law</td><td>Eindhoven University</td><td>Netherlands</td><td>4 years</td><td>$16,167</td><td><a href='https://www.eindhovenuniversity.edu' target='_blank'>Visit</a></td><td>Science</td><td>TOEFL 90+</td></tr>
+<tr><td>Education in Biotech</td><td>Stanford University</td><td>USA</td><td>5 years</td><td>$54,283</td><td><a href='https://www.stanforduniversity.edu' target='_blank'>Visit</a></td><td>Education</td><td>GRE required</td></tr>
+<tr><td>Science in Biotech</td><td>University of Toronto</td><td>Canada</td><td>5 years</td><td>$21,766</td><td><a href='https://www.universityoftoronto.edu' target='_blank'>Visit</a></td><td>Science</td><td>12th with 75%+</td></tr>
+    </tbody>
+</table>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script>
+    let courseTable;
+    $(document).ready(function () {
+        courseTable = $('#courseTable').DataTable({
+            pageLength: 10,
+            lengthChange: false
+        });
+    });
+
+    function escapeRegex(str) {
+        return str.replace(/[.*+?^{}()|[\]\]/g, '\\$&');
+    }
+
+    function applyFilters() {
+        let country = $('#countryFilter').val();
+        let category = $('#categoryFilter').val();
+
+        let countryRegex = country ? '^' + escapeRegex(country) + '$' : '';
+        let categoryRegex = category ? '^' + escapeRegex(category) + '$' : '';
+
+        courseTable.column(2).search(countryRegex, true, false);  // Country
+        courseTable.column(6).search(categoryRegex, true, false); // Category
+        courseTable.draw();
+    }
+</script>
+
+</body>
+</html>
